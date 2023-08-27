@@ -1,38 +1,48 @@
-from collections import deque
+import sys
+input=sys.stdin.readline
+from collections import defaultdict,deque
+N,M,V=map(int,input().split())## N은 1000이하, M은 10000이하,
+graph=defaultdict(list)
+for i in range(M):
+    v1,v2=map(int,input().split())
+    graph[v1].append(v2)
+    graph[v2].append(v1)
+    graph[v1].sort()
+    graph[v2].sort()
+    
+dfs=[]
+dfs.append(str(V))
+visitiedDFS=[0 for _ in range(N+1)]
+visitiedDFS[V]=1
 
-def dfs(graph, visited, start):
+def DFS(start):
     
-    visited[start-1]=1   
-    print(start,end=' ')
-    for i in range(len(visited)):       
-        if (graph[start-1][i]==1) and (visited[i]==0):
-            dfs(graph,visited,i+1)      
-                
-def bfs(graph, visited, start):
+    for nei in graph[start]:
+        if not visitiedDFS[nei]:
+            visitiedDFS[nei]=1
+            dfs.append(str(nei))
+            DFS(nei)
+            
+DFS(V)
+print(' '.join(dfs))
+
+bfs=[]
+bfs.append(str(V))
+visitiedBFS=[0 for _ in range(N+1)]
+visitiedBFS[V]=1
+
+def BFS(start):
     queue=deque()
-    queue.append(start-1)
-    visited[start-1]=1
+    queue.append(start)
     while queue:
-        visit=queue.popleft()
         
-        print(visit+1,end=' ')
-        
-        for i in range(len(visited)):
-            if graph[visit][i]==1 and visited[i]==0:
-                visited[i]=1
-                queue.append(i)
-                    
-        
-    
-n,e,start=map(int,input().split())
-graph=[[0]*n for _ in range(n)]
-visited=[0]*n
-for i in range(e):
-    a,b=map(int,input().split())
-    graph[a-1][b-1]= graph[b-1][a-1]=1
-     
-    
-dfs(graph, visited, start)
-print('')
-visited=[0]*n 
-bfs(graph, visited, start)          
+        v=queue.popleft()
+       
+        for nei in graph[v]:
+            if not visitiedBFS[nei]:
+                visitiedBFS[nei]=1
+                bfs.append(str(nei))
+                queue.append(nei)
+
+BFS(V)
+print(' '.join(bfs))
