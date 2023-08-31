@@ -31,7 +31,7 @@ idx=0
 for i in range(N):
     hap+=arr[i]
     if hap>ans:
-        cntArr.append(str(i-idx))
+        cntArr.append(i-idx)
         hap=arr[i]
         idx=i
     elif hap<=ans and N-i<M-len(cntArr):
