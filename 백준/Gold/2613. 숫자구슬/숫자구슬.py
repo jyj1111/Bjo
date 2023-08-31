@@ -35,10 +35,10 @@ for i in range(N):
         hap=arr[i]
         idx=i
     elif hap<=ans and N-i<M-len(cntArr):
-        cntArr+=["1"]*(N-i)
+        cntArr+=[1]*(N-i)
         idx=N-1
         break
-cntArr.append(str(N-idx)) 
+cntArr.append(N-idx) 
 
 print(ans)
-print(' '.join(cntArr))
+print(*cntArr)
