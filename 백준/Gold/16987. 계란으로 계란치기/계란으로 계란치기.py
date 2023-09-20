@@ -28,7 +28,7 @@ def DFS(idx,cut):
             eggs[i][0]+=eggs[idx][1]
 
         if not flag:
-            DFS(idx+1,cut)
+            DFS(N,cut)
  
 
 DFS(0,0)
