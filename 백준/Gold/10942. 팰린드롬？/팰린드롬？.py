@@ -1,31 +1,54 @@
 import sys
 input=sys.stdin.readline
 
-N=int(input())#1 ≤ N ≤ 2,000
-nums=list(map(int,input().split()))
-M=int(input())#1 ≤ M ≤ 1,000,000
-dp=[[-1]*(N) for _ in range(N)]
-for i in range(N):
-    dp[i][i]=1
+N=int(input())# 1<=N<=2000
+arr=[0]+list(map(int,input().split()))
+M=int(input())# 1<=M<=1000000
 
-def Palindrome(S,E):
-    if dp[S-1][E-1]!=-1:
-        return dp[S-1][E-1]
+"""
+시간초과
+def isPalindrome(s,e):
+    if s==e:
+        return 1
     
-        
-    mid=((S-1)+(E-1))//2
-    for i in range(mid,S-2,-1):
-        if nums[i]==nums[E-1+S-1-i]:
-            dp[i][E-1+S-1-i]=1
-        else:
-            for j in range(i,S-2,-1):
-                dp[j][E-1+S-1-j]=0
-            break
+    mid=(s+e)//2
+    num=mid-s
+
+    if (s+e)%2==1:
+        for j in range(num+1):
+            if arr[mid-j]!=arr[mid+1+j]:
+                return 0
+        return 1
+
+    for i in range(1,num+1):
+        if arr[mid-i]!=arr[mid+i]:
+            return 0
             
-    return dp[S-1][E-1]
-    
-        
+    return 1   시간복잡도: N/2*M 대략 10억            
+             
+
 
 for i in range(M):
-    S,E=map(int,input().split())
-    print(Palindrome(S,E))
+    start,end=map(int,input().split())
+    print(isPalindrome(start,end))
+"""
+
+dp=[[0]*(N+1) for _ in range(N+1)]
+
+for i in range(1,N+1): # 길이가 1
+    dp[i][i]=1
+
+for i in range(1,N):   # 길이가 2
+    if arr[i]==arr[i+1]:
+        dp[i][i+1]=1
+    
+
+for l in range(2,N): #길이가 3이상
+    for i in range(1,N-(l-1)):
+        if arr[i]==arr[i+l] and dp[i+1][i+l-1]:
+            dp[i][i+l]=1
+       
+    
+for i in range(M):
+    start,end=map(int,input().split())
+    print(dp[start][end])     
