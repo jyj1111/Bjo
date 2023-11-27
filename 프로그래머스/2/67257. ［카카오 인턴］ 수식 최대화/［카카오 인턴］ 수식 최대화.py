@@ -1,16 +1,8 @@
 from itertools import permutations
 import re
-def caculate(num1,operator,num2):
-    if operator=='-':
-        return num1-num2    
-    elif operator=="+":
-        return num1+num2
-    elif operator=="*":
-        return num1*num2
 
 def makeExpressionbySeperator(seperator,expression,pr):
     expArr=re.split(seperator,expression)
-    #print(expArr)
     exp=''
     for s in expArr:
         if pr in s:
@@ -35,7 +27,6 @@ def solution(expression):
         seperator2="("+"["+pr3+"]"+")"
         exp2=makeExpressionbySeperator(seperator2,exp1,pr2)
         answer=max(answer,abs(eval(exp2)))
-            
     return answer
         
   
