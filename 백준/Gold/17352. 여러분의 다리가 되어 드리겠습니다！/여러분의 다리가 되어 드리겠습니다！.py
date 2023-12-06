@@ -30,7 +30,7 @@ init()
 
 for i in range(n-2):
     n1,n2=map(int,input().split())
-    union(find(n1),find(n2))
+    union(n1,n2)
 
 ans=[1,1]
 
