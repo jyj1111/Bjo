@@ -1,38 +1,34 @@
 import sys
+sys.setrecursionlimit(10**9)
 input=sys.stdin.readline
-sys.setrecursionlimit(10 ** 9)
+
 n=int(input())
 arr=list(map(int,input().split()))
-dp=[[0]*((500*30)+1) for _ in range(31)]
+hap=sum(arr)
 
-def DFS(depth,result):
-    global dp
-    #print(depth,result)
-    if depth>n:
+dp=[['N']*(hap+1) for _ in range(n+1)]
+
+def DFS(depth,value):
+    if dp[depth][value]=='Y':
         return
-    if dp[depth][result]:
-        return 
-    dp[depth][result]=1
-    DFS(depth+1,result+arr[depth-1])
-    DFS(depth+1,result)
-    DFS(depth+1,abs(result-arr[depth-1]))
+    dp[depth][value]='Y'
+    if depth==n:
+        return
     
-    
+    DFS(depth+1,value+arr[depth])
+    DFS(depth+1,value)
+    DFS(depth+1,abs(value-arr[depth]))
+
 DFS(0,0)
-#print(dp)
 
 m=int(input())
+arr1=list(map(int,input().split()))
 ans=[]
-cases=list(map(int,input().split()))
-for case in cases:
-    if case>15000:
-        ans.append('N')     
-        
-    elif dp[n][case]:
-        ans.append('Y')
-        
-    else:
+for num in arr1:
+    if num>hap:
         ans.append('N')
+    else:
+        ans.append(dp[n][num])        
+    
 
 print(*ans)
-        
