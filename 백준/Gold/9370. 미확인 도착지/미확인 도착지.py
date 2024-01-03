@@ -32,7 +32,8 @@ for i in range(T):
     answer=[]
     for j in range(t):
         e=int(input())
-        if dijkstra(s,e)==dijkstra(s,g)+dijkstra(g,e) and dijkstra(s,e)==dijkstra(s,h)+dijkstra(h,e):
+        dis=dijkstra(s,e)
+        if dis==dijkstra(s,g)+dijkstra(g,e) and dis==dijkstra(s,h)+dijkstra(h,e):
             answer.append(e)
  
     answer.sort()
