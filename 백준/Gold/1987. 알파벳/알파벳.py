@@ -1,25 +1,23 @@
 import sys
 input=sys.stdin.readline
-dic=set()
-dy=[-1,0,1,0]
-dx=[0,1,0,-1]
-R,C=map(int,input().split()) ## R:세로, C:가로, 둘다 20이하
-graph=[list(input().rstrip('\n')) for _ in range(R)]
-dic.add(graph[0][0])
-ans=1
-def DFS(cnt,y,x):
+n,m=map(int,input().split())
+
+Maps=[list(input().rstrip('\n')) for _ in range(n)]
+visited=[0]*(26)
+
+ans=0
+
+def DFS(y,x,cnt):
     global ans
     ans=max(ans,cnt)
-    for i in range(4):
-        r1=y+dy[i]
-        c1=x+dx[i]
-        if 0<=r1<R and 0<=c1<C:
-            if not graph[r1][c1] in dic:
-                dic.add(graph[r1][c1])
-                DFS(cnt+1,r1,c1)
-                dic.remove(graph[r1][c1])
-                
-            
+    for dy,dx in [(1,0),(-1,0),(0,1),(0,-1)]:
+        y1,x1=y+dy,x+dx
+        if 0<=y1<n and 0<=x1<m and visited[ord(Maps[y1][x1])-65]==0:
+            n1=ord(Maps[y1][x1])-65
+            visited[n1]=1
+            DFS(y1,x1,cnt+1)
+            visited[n1]=0
 
-DFS(1,0,0)
+visited[ord(Maps[0][0])-65]=1
+DFS(0,0,1)
 print(ans)
