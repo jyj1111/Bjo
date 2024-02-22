@@ -4,13 +4,13 @@ from collections import defaultdict
 dic=defaultdict(int)
 dic1=defaultdict(int)
 
-dp=[[[[0]*(26) for _ in range(50)] for _ in range(50)] for _ in range(50)]
+dp=[[[[0]*(11) for _ in range(50)] for _ in range(50)] for _ in range(50)]
 
 s=input().rstrip('\n')
 
-arr=['','A','B','C','AA','AB','AC','BA','BC','CA','CB','AAA','AAB','AAC','ABA','ABC','ACA','ACB','BAA','BAB','BAC','BCA','BCB','CAA','CAB','CBA']
+arr=['','A','B','C','AA','AB','AC','BA','BC','CA','CB']
 
-for i in range(26):
+for i in range(11):
     dic1[arr[i]]=i
 
 for si in s:
@@ -55,14 +55,9 @@ def DFS(a,b,c,res):
                 DFS(a,b+1,c,res+'B')
                 
     else:
-        if len(res)==2:
-            if dp[a][b][c][dic1[res]]:
-                return
-            dp[a][b][c][dic1[res]]=1
-        else:
-            if dp[a][b][c][dic1[res[-3:]]]:
+        if dp[a][b][c][dic1[res[-2:]]]:
                 return 
-            dp[a][b][c][dic1[res[-3:]]]=1
+        dp[a][b][c][dic1[res[-2:]]]=1
 
         if (res[-2]=='A' and res[-1]=='A') or (res[-2]=='B' and res[-1]=='A'):
             DFS(a+1,b,c,res+'A')
