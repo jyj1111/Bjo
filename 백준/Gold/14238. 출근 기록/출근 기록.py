@@ -4,55 +4,48 @@ from collections import defaultdict
 dic=defaultdict(int)
 dic1=defaultdict(int)
 
-dp=[[[[0]*(11) for _ in range(50)] for _ in range(50)] for _ in range(50)]
+dp=[[[[0]*(8) for _ in range(50)] for _ in range(50)] for _ in range(50)]
 
 s=input().rstrip('\n')
 
-arr=['','A','B','C','AA','AB','AC','BA','BC','CA','CB']
+arr=['','AA','AB','AC','BA','BC','CA','CB']
 
-for i in range(11):
+for i in range(8):
     dic1[arr[i]]=i
 
 for si in s:
     dic[si]+=1
 
-ans=[]
+
 def DFS(a,b,c,res):
-    #print(a,b,c,res)
+
     if a>dic['A'] or b>dic['B'] or c>dic['C']:
         return
 
     if a+b+c>len(s):
         return
-    if len(ans)>0:
-        return
 
     if a+b+c>0 and a==dic['A'] and b==dic['B'] and c==dic['C']:
-        ans.append(res)
-        return
+        print(res)
+        exit(0)
 
     if len(res)<2:
         if dp[a][b][c][dic1[res]]:
             return
         dp[a][b][c][dic1[res]]=1
-        if len(res)==0:
+        if res=='' or res=='A':
             DFS(a+1,b,c,res+'A')
             DFS(a,b+1,c,res+'B')
             DFS(a,b,c+1,res+'C')
 
-        elif len(res)==1:
-            if res[-1]=='A':
-                DFS(a+1,b,c,res+'A')
-                DFS(a,b+1,c,res+'B')
-                DFS(a,b,c+1,res+'C')
+        elif res=='B':
+            DFS(a+1,b,c,res+'A')
+            DFS(a,b,c+1,res+'C')
 
-            elif res[-1]=='B':
-                DFS(a+1,b,c,res+'A')
-                DFS(a,b,c+1,res+'C')
+        elif res=='C':
+            DFS(a+1,b,c,res+'A')
+            DFS(a,b+1,c,res+'B')
 
-            elif res[-1]=='C':
-                DFS(a+1,b,c,res+'A')
-                DFS(a,b+1,c,res+'B')
                 
     else:
         if dp[a][b][c][dic1[res[-2:]]]:
@@ -79,5 +72,5 @@ def DFS(a,b,c,res):
 
 
 DFS(0,0,0,'')
-print(ans[0] if len(ans)>0 else -1)
+print(-1)
     
