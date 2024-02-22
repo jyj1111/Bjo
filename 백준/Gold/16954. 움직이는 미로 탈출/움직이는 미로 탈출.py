@@ -24,8 +24,8 @@ while queue:
         ans=1
         break
     
-    for i in range(9):
-        y1,x1=y+dy[i],x+dx[i]
+    for dy1,dx1 in zip(dy,dx):
+        y1,x1=y+dy1,x+dx1
         if inbound(y1,x1) and Maps[y1][x1]=='.':
             if Maps[y1-1][x1]=='.' and not visited[y1-1][x1]:
                 visited[y1-1][x1]=True
