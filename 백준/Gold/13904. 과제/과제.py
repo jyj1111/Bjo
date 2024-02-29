@@ -1,26 +1,26 @@
-import sys,heapq
+import sys
 input=sys.stdin.readline
-
-
-pq=[]
-heapq.heapify(pq)
-
-N=int(input())#N<1000
-
+n=int(input())
+hw=[]
 maxDay=0
-for i in range(N):
-    dday,point=map(int,input().split())#dday<=1000, point<=100
-    heapq.heappush(pq,(-point,dday))
-    maxDay=max(maxDay,dday)
+for i in range(n):
+    day,w=map(int,input().split())
+    maxDay=max(maxDay,day)
+    hw.append((day,w))
 
-assigned=[0]*(maxDay+1)
-while pq:
-    point,dday=heapq.heappop(pq)
-    point=-point
-    for day in range(dday,0,-1):
-        if assigned[day]:
+hw.sort(key=lambda x:-x[1])
+
+point=[0]*(maxDay+1)
+
+answer=0
+
+for day,w in hw:
+    for d in range(day,0,-1):
+        if point[d]:
             continue
-        assigned[day]=point
-        break
-
-print(sum(assigned))
+        else:
+            point[d]=w
+            answer+=w
+            break
+    
+print(answer)    
