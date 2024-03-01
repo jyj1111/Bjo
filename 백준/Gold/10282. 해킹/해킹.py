@@ -13,9 +13,10 @@ def dijkstra(start):
         if w>dis[cur]:
             continue
         for node,w1 in graph[cur]:
-            if dis[node]>w+w1:
-                dis[node]=w+w1
-                heappush(pq,(node,w+w1))
+            dis1=w+w1
+            if dis[node]>dis1:
+                dis[node]=dis1
+                heappush(pq,(node,dis1))
                 
     total,maxDis=0,0
     for i in range(1,n+1):
