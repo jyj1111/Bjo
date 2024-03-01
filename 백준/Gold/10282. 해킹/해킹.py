@@ -1,11 +1,11 @@
 import sys
 from heapq import heappush,heappop
-MAX=sys.maxsize
 input=sys.stdin.readline
+INF=10**7+1
 
 def dijkstra(start):
     pq=[]
-    dis=[MAX]*(n+1)
+    dis=[INF]*(n+1)
     dis[start]=0
     heappush(pq,(start,0))
     while pq:
@@ -19,11 +19,14 @@ def dijkstra(start):
                 
     total,maxDis=0,0
     for i in range(1,n+1):
-        if dis[i]!=MAX:
+        if dis[i]!=INF:
             total+=1
             maxDis=max(maxDis,dis[i])
     print(total,maxDis)
+           
     
+    
+
 for _ in range(int(input())):
     n,d,c=map(int,input().split())
     graph=[[] for _ in range(n+1)]
