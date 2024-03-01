@@ -1,9 +1,7 @@
 import sys
 from heapq import heappush,heappop
-from collections import defaultdict
 MAX=sys.maxsize
 input=sys.stdin.readline
-t=int(input())
 
 def dijkstra(start):
     pq=[]
@@ -25,15 +23,11 @@ def dijkstra(start):
             total+=1
             maxDis=max(maxDis,dis[i])
     print(total,maxDis)
-           
     
-    
-
-for t1 in range(t):
+for _ in range(int(input())):
     n,d,c=map(int,input().split())
-    graph=defaultdict(list)
-    for j in range(d):
+    graph=[[] for _ in range(n+1)]
+    for _ in range(d):
         a,b,s=map(int,input().split())
         graph[b].append((a,s))
-        
     dijkstra(c)
