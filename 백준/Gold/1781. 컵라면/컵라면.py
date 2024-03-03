@@ -1,19 +1,20 @@
 import sys
-import heapq
+from heapq import heappush,heappop
 input=sys.stdin.readline
 n=int(input())
-arr=[]
+hw=[]
+maxDay=0
+for i in range(n):
+    day,w=map(int,input().split())
+    maxDay=max(maxDay,day)
+    hw.append((day,w))
+
+hw.sort()
 pq=[]
-for i in range(n):
-  day,profit=map(int,input().split())
-  arr.append((day,profit))
 
-arr.sort()
-
-for i in range(n):
-  heapq.heappush(pq,arr[i][1])
-  if len(pq)>arr[i][0]:
-    heapq.heappop(pq)
+for day,w in hw:
+    if day<=len(pq):
+        heappop(pq)
+    heappush(pq,w)
 
 print(sum(pq))
-  
