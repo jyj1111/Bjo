@@ -19,9 +19,9 @@ def solution(n, bans):
          
 
     while target>0:
-        answer+=chr(((target-1)%26)+97)
-        if target%26==0:
-            target-=1
+        target-=1
+        answer+=chr((target%26)+97)
+            
         target=target//26
 
 
